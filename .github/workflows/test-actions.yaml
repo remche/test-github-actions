@@ -16,11 +16,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo snap install microstack --devmode --beta
       - run: sudo microstack init --auto --control
-      - run: microstack.openstack keypair list
-      - run: microstack.openstack image list
-      - run: microstack.openstack flavor list
-      - run: microstack launch cirros -n test
-      - run: sudo snap get microstack config.credentials.keystone-password
+      - run: curl https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img -o focal.img
+      - run: microstack.openstack image create --file focal.img ubuntu-20.04-focal-x86_64
+      - run: source /var/snap/microstack/common/etc/microstack.rc
+      - run: ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" && eval $(ssh-agent) && ssh-add
+      - run: terraform init
+      - run: terraform apply -auto-approve
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
 
