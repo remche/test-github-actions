@@ -6,6 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: sudo snap install microstack --beta
+      - run: sudo modprobe openvswitch
       - run: sudo microstack init --auto --control
       - run: microstack.openstack keypair list
       - run: microstack.openstack image list
