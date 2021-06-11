@@ -1,25 +1,26 @@
-name: CI
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
-#name: learn-github-actions
+#name: CI
 #on: [push]
 #jobs:
-  #check-bats-version:
+  #build:
     #runs-on: ubuntu-latest
     #steps:
-      #- uses: actions/checkout@v2
-      #- run: sudo snap install microstack --beta
-      #- run: sudo modprobe openvswitch
-      #- run: sudo microstack init --auto --control
-      #- run: microstack.openstack keypair list
-      #- run: microstack.openstack image list
-      #- run: microstack.openstack flavor list
-      #- run: microstack launch cirros -n test
-      #- run: sudo snap get microstack config.credentials.keystone-password
+    #- uses: actions/checkout@v2
+    #- name: Setup upterm session
+      #uses: lhotari/action-upterm@v1
+name: learn-github-actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo snap install microstack --devmode --beta
+      - run: sudo microstack init --auto --control
+      - run: microstack.openstack keypair list
+      - run: microstack.openstack image list
+      - run: microstack.openstack flavor list
+      - run: microstack launch cirros -n test
+      - run: sudo snap get microstack config.credentials.keystone-password
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
 
