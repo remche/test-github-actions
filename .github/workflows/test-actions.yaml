@@ -21,6 +21,9 @@ jobs:
       #- run: ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
       #- run: terraform init
       #- run: eval $(ssh-agent) && ssh-add && source /var/snap/microstack/common/etc/microstack.rc && terraform apply -auto-approve
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
 
